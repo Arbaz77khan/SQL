@@ -1,0 +1,788 @@
+All About SQL - Structured Query Language
+
+What are Databases?
+
+A Database is a shared collection of logically related data and description of these data, designed to meet the information needs of an organization
+
+Data Storage: A database is used to store large amounts of structured data, making it easily accessible, searchable, and retrievable.
+Data Analysis: A database can be used to perform complex data analysis, generate reports, and provide insights into the data.
+Record Keeping: A database is often used to keep track of important records, such as financial transactions, customer information, and inventory levels.
+Web Applications: Databases are an essential component of many web applications, providing dynamic content and user management.
+
+We can only perform CRUD operations on database! C = Create ; R = Retrive ; U = Update ; D = Delete
+
+Properties of an Ideal Database:
+	1. Integrity (Accurate and consistence)
+	2. Availability
+	3. Security
+	4. Independent of Application
+	5. Concurrency
+	
+Types of Databases:
+
+	1. Relational Databases - Also known as SQL databases or row database, these databases use a relational model to organize data into tables with rows and columns.
+								e.g. postgre, sql server, MYSQL
+	2. NoSQL Databases - These databases are designed to handle large amounts of unstructured or semi-structured data, such as documents, images, or videos. 
+						e.g. MongoDB
+	3. Column Databases - These databases store data in columns rather than rows, making them well- suited for data warehousing and analytical applications. 
+							e.g. Amazon Redshift, Google BigQuery
+	4. Graph Databases - These databases are used to store and query graph-structured data, such as social network connections or recommendation systems. 
+							e.g. Neo4j, Amazon Neptune
+	5. Key-value databases - These databases store data as a collection of keys and values, making them well-suited for caching and simple data storage needs 
+							e.g. Redis and Amazon DynamoDB
+A company has various types of databases to manage all data. You have to use this base on requirement.
+
+What is a DBMS:
+				A database management system (DBMS) is a software system that provides the interfaces and tools needed to store, organize, and manage data in a database. 
+				A DBMS acts as an intermediary between the database and the applications or users that access the data stored in the database.
+	
+				Users -> Applications -> DBMS -> OS -> Harddrive
+				
+Functions of DBMS
+
+	Data Management - Store, retrieve and modify data
+	Integrity - Maintain accuracy of data
+	Concurrency - Simultaneous data access for multiple users
+	Transaction - Modification to database must either be successful or must not happen at all
+	Security - Access to authorized users only
+	Utilities - Data import/export, user management, backup, logging
+	
+Database Keys:
+
+A key in a database is an attribute or a set of attributes that uniquely identifies a tuple (row) in a table. Keys play a crucial role in ensuring the integrity and reliability of a database by enforcing unique constraints on the data and establishing relationships between tables.
+
+1. Super Key - A Super key is a combination of columns that uniquely identifies any row within a relational database management system (RDBMS) table
+2. Candidate key - A candidate key is a minimal Super key, meaning it has no redundant attributes. In other words, it's the smallest set of attributes that can be used to uniquely identify a tuple (row) in the table
+3. Primary Key - A primary key is a unique identifier for each tuple in a table. There can only be one primary key in a table, and it cannot contain null values.
+4. Alternate Key - An alternate key is a candidate key that is not used as the primary key.
+5. Composite Key - A composite key is a primary key that is made up of two or more attributes. Composite keys are used when a single attribute is not sufficient to uniquely identify a tuple in a table.
+6. Surrogate Key - If table does not contains any super key/primary key, we have to explicitly add a column which can act as primary key.
+7. Foreign Key - A foreign key is a primary key from one table that is used to establish a relationship with another table.
+
+Cardinality of Relationships: 
+
+Cardinality in database relationships refers to the number of occurrences of an entity in a relationship with another entity. Cardinality defines the number of instances of one entity that can be associated with a single instance of the related entity.
+	one to one relationship
+	one to many relationship
+	many to many relationship
+	
+SQL:
+SQL (Structured Query Language) is a programming language used for managing and manipulating data in relational databases. It allows you to insert, update, retrieve, and delete data in a database. 
+It is widely used for data management in many applications, websites, and businesses. In simple terms, SQL is used to communicate with and control databases.
+	
+Types of SQL commands:
+		
+		1. DDL (Data definition language):
+			A. CREATE : create a new database objects
+			B. ALTER : modify existing database objects
+			C. DROP : delete existing database objects
+			D. TRUNCATE : remove all rows from table
+		2. DML (Data manipulation language):
+			A. INSERT : create a new rows in table
+			B. SELECT : retrive data from table
+			C. UPDATE : modify data in table
+			D. DELETE : delete data from table
+		3. DCL (Data control language):
+			A. GRANT : provide access rights on database
+			B. REVOKE : revoke access rights on database
+		4. TCL (Transaction control language):
+			A. COMMIT : save database changes and end transaction
+			B. ROLLBACK : undo changes that are not commited and end transaction
+		
+		
+Some DDL commands:
+
+	1. CREATE DATABASE IF NOT EXISTS testdatabase
+	2. DROP DATABASE IF EXISTS testdatabase
+	3. CREATE TABLE IF NOT EXISTS testtable( user_id INTEGER, name VARCHAR(255), email VARCHAR(255), password VARCHAR(255) )
+	4. TRANCATE TABLE testtable
+	5. DROP TABLE IF EXISTS testtable
+
+	Data Integrity:
+	Data integrity in databases refers to the accuracy, completeness, and consistency of the data stored in a database. It is a measure of the reliability and trustworthiness of the data and ensures that the data in a database is protected from errors, corruption, or unauthorized changes.
+
+	There are various methods used to ensure data integrity, including:
+
+	Constraints: Constraints in databases are rules or conditions that must be met for data to be inserted, updated, or deleted in a database table. They are used to enforce the integrity of the data stored in a database and to prevent data from becoming inconsistent or corrupted.
+	Transactions: a sequence of database operations that are treated as a single unit of work.
+	Normalization: a design technique that minimizes data redundancy and ensures data consistency by organizing data into separate tables.
+
+	Constraints in MySQL:
+
+	1. NOT NULL
+	2. UNIQUE(combo)
+		-> Another way of creating constraint
+	3. PRIMARY KEY
+	4. AUTO INCREMENT
+	5. CHECK
+	6. DEFAULT
+	7. FOREIGN KEY
+
+	Referential Actions
+
+	1. RESTRICT : this is set by default. that means if foreignkey specified and we try to delete/update referential row, it will restrict and throw error.
+	2. CASCADE : if foreignkey specified and we try to delete/update referential row, it will also delete/update that data in reference table.
+	3. SET NULL : if foreignkey specified and we try to delete/update referential row, it will set null to that data in reference table.
+	4. SET DEFAULT : if foreignkey specified and we try to delete/update referential row, it will set default value to that data in reference table.
+
+	CREATE TABLE IF NOT EXISTS testtable( user_id INTEGER NOT NULL, name VARCHAR(255), email VARCHAR(255) UNIQUE, password VARCHAR(255) );
+
+	OR
+
+	CREATE TABLE IF NOT EXISTS testtable2( 
+		user_id INTEGER AUTO INCREMENT, 
+		name VARCHAR(255), 
+		email VARCHAR(255) ,
+		password VARCHAR(255), 
+		age INTEGER,
+		gender VARCHAR(10) DEFAULT 'no',
+		s_id INTEGER,
+		
+		CONSTRAINT testtable2_user_id_unique UNIQUE (user_id),
+		CONSTRAINT testtable2_user_id_unique PRIMARY KEY (user_id),
+		CONSTRAINT testtable2_age_check CHECK (age > 10 and age < 30),
+		CONSTRAINT testtable2_fk FOREIGN KEY (s_id) REFERENCES anothertable(s_id)
+		ON DELETE CASCADE   -> (you can use above referential actions)
+		ON UPDATE CASCADE
+	)
+
+	ALTER TABLE command:
+		The "ALTER TABLE" statement in SQL is used to modify the structure of an existing table. 
+		Some of the things that can be done using the ALTER TABLE statement include:
+
+			1. Add columns : ALTER TABLE testtable2 ADD COLUMN education VARCHAR(255) AFTER name     OR
+							ALTER TABLE testtable2
+							ADD COLUMN education VARCHAR(255) AFTER name,
+							ADD COLUMN village VARCHAR(255)
+							
+			2. Delete columns : ALTER TABLE testtable2 DROP COLUMN education				OR
+								ALTER TABLE testtable2 
+								DROP COLUMN education,
+								DROP COLUMN village
+								
+			3. Modify columns : ALTER TABLE testtable2 MODIFY COLUMN education INTEGER			OR
+								ALTER TABLE testtable2 
+								MODIFY COLUMN education DATETIME,
+								MODIFY COLUMN village VARCHAR(10)
+								
+			4. Adding constraints : ALTER TABLE testtable2 ADD CONSTRAINT testtable2_age_check CHECK (age > 10 and age < 30)
+			
+		Editing and Deleting Constraints:
+			We cannot edit the constraints, to do we have to delete and add new constraint.
+	
+Some DML commands:
+
+	Insert way 1:
+					INSERT INTO testdatabase.users (user_id, name, email, password) 
+					VALUES (NULL, 'Arbaz', 'arbazkhan772001@gmail.com', '772001')
+					
+	Insert way 2:
+					INSERT INTO testdatabase.users
+					VALUES (NULL, 'Salman', 'salmankhan772001@gmail.com', '45678')
+					
+	Insert way 3 (If you need to enter only some values, In this order is not mandatory):
+					INSERT INTO testdatabase.users (name, email, password)
+					VALUES ('amit', 'amit@gmail.com', '2w3e')
+					
+	Insert way 4 (for multiple enteries):
+					INSERT INTO testdatabase.users VALUES 
+					(NULL, 'Sohel', 'sohel@gmail.com', '1q2w'),
+					(NULL, 'Sandy', 'sandy@gmail.com', '3e4r'),
+					(NULL, 'ram', 'ram@gmail.com', '5t6y')
+					
+	Select all: 
+					SELECT * FROM testdatabase.smartphones WHERE 1    ('WHERE 1' is optional)
+	filter cols: 
+					SELECT model, battery_capacity FROM testdatabase.smartphones
+	alias (renaming cols): 
+					SELECT model AS Phn_name, battery_capacity FROM testdatabase.smartphones
+	Calculating expressions: 
+					SELECT model, sqrt(resolution_width*resolution_width + resolution_height*resolution_height)/screen_size AS ppi FROM testdatabase.smartphones
+	Distinct (Unique):
+					SELECT DISTINCT(brand_name) FROM testdatabase.smartphones
+	Multiple combination of Distinct:
+					SELECT DISTINCT brand_name, processor_brand FROM testdatabase.smartphones
+	Where clause:
+					SELECT * FROM testdatabase.smartphones WHERE brand_name= 'oneplus'
+	Between:
+					SELECT * FROM testdatabase.smartphones WHERE price BETWEEN 50000 AND 100000
+	IN / NOT IN: 
+					SELECT * FROM testdatabase.smartphones WHERE brand_name IN ('oneplus', 'realme')
+					SELECT * FROM testdatabase.smartphones WHERE brand_name NOT IN ('oneplus', 'realme')
+					
+	Order of Execution (Query execution order): 
+												From -> Join -> Where -> GroupBy -> Having -> Select -> Distinct -> OrderBy
+												
+		mnemonics to keep in mind: Frank John's Wicked Grave Haunts Several Dull Owls.
+		
+	UPDATE:
+					UPDATE testdatabase.users
+					SET password = '5t6y7u'
+					WHERE user_id = 5
+					
+	DELETE: 
+					DELETE FROM testdatabase.smartphones
+					WHERE price > 200000
+					
+	Aggregate function:
+		
+		Max/Min/Avg/SUM : SELECT MIN(price) FROM testdatabase.smartphones WHERE brand_name ='Oneplus'
+		
+		COUNT : SELECT COUNT(*) FROM testdatabase.smartphones WHERE brand_name ='Oneplus'
+		
+		COUNT DISTINCT: SELECT COUNT(DISTINCT(processor_brand)) FROM testdatabase.smartphones WHERE brand_name ='Oneplus'
+		
+		STD/ VARIANCE : SELECT VARIANCE(price) FROM testdatabase.smartphones WHERE brand_name ='Oneplus'
+		
+	Scalar function:
+		
+		ABS(): will make positive for every value.
+		ROUND(): round off the value. if you need tow decimal after point -> round(xyz,2)
+		CEIL : It will move the value to next int number.
+		FLOOR : It will move the value to previous int number.
+		
+Some problems FOR SORTING DATA :
+
+	1. Find top 5 samsung smartphones with biggest screen size.
+	Ans: 
+			SELECT model, screen_size FROM testdatabase.smartphones
+			WHERE brand_name = 'samsung'
+			ORDER BY screen_size DESC
+			LiMIT 5
+			
+	2. Sort all the phones in descending order of number of total cameras.
+	Ans:
+			SELECT model, (num_rear_cameras + num_front_cameras) AS 'total_cameras' FROM testdatabase.smartphones
+			ORDER BY total_cameras DESC
+			
+	3. Sort data on the basis of ppi in decreasing order.
+	Ans:
+			SELECT Model,
+			ROUND(SQRT(resolution_width * resolution_width + resolution_height * resolution_height)/ screen_size) AS ppi
+			FROM testdatabase.smartphones
+			ORDER BY ppi DESC
+			
+	4. Find the phone with second largest battery capacity.
+	Ans:
+			SELECT model, battery_capacity FROM testdatabase.smartphones
+			ORDER BY battery_capacity DESC
+			LIMIT 1,1						-> Starting index is also 0 here.
+			
+	5. Find the name and rating of worst rated apple iphone.
+	Ans:
+			SELECT model, rating FROM testdatabase.smartphones
+			WHERE brand_name = 'apple'
+			ORDER BY rating ASC
+			LIMIT 1
+		
+	6. Sort all phone on basis of brand name and rating.
+	Ans:
+			SELECT * FROM testdatabase.smartphones
+			ORDER BY brand_name ASC, rating DESC
+			
+Some problems for grouping data.
+
+	1. Group smartphones by brands and get count, avg price, max rating, avg screen size, avg battery capacity.
+	Ans:
+			SELECT brand_name, COUNT(*) AS total_phones, ROUND(avg(price)) AS avg_price, MAX(rating) AS max_rating, ROUND(avg(screen_size),2) AS avg_screen_size, ROUND(avg(battery_capacity)) AS avg_battery_capacity
+			FROM testdatabase.smartphones
+			GROUP BY brand_name
+			ORDER BY total_phones DESC
+			
+	2. Group smartphones on basis of NFC and get their avg price and rating.
+	Ans:
+			SELECT has_nfc, AVG(price) as avg_price, AVG(rating) as avg_rating
+			FROM testdatabase.smartphones
+			GROUP BY has_nfc
+			
+	3. Group phones by brand and processor brand and sget the count of models, avg primary cameras resolution.
+	Ans:
+			SELECT brand_name, processor_brand, COUNT(*) AS total_phones, ROUND(AVG(primary_camera_rear)) AS avg_camera_res 
+			FROM testdatabase.smartphones
+			GROUP BY brand_name, processor_brand
+			ORDER BY brand_name
+			
+Some problems for Having clause: Having clause does the same thing for 'group by' as what 'Where' cluase do for select.
+
+	1. Find the avg rating of smartphone brands which has more than 20 phones.
+	Ans:
+			SELECT brand_name, ROUND(AVG(rating),2) AS avg_rating
+			FROM testdatabase.smartphones
+			GROUP BY brand_name
+			HAVING COUNT(brand_name) > 20
+			ORDER BY avg_rating DESC
+			
+	2. Find the top three brands with the highest avg ram that have a refresh rate of atleast 90 Hz and fast charging available and don't consider brands which have less than 10 phones.
+	Ans:
+			SELECT brand_name, ROUND(AVG(ram_capacity)) AS avg_ram
+			FROM testdatabase.smartphones
+			WHERE refresh_rate >= 90 AND fast_charging_available = 1
+			GROUP BY brand_name 
+			HAVING COUNT(brand_name) > 10
+			ORDER BY avg_ram DESC
+			LIMIT 3
+			
+SQL JOINS:
+
+	In SQL (Structured Query Language), a join is a way to combine data from two or more database tables based on a related column between them.
+	Joins are used when we want to query information that is distributed across multiple tables in a database, and the information we need is not contained in a single table. 
+	By joining tables together, we can create a virtual table that contains all of the information we need for our query.
+		
+	Types of joins:
+	
+		Cross Joins -> Cartesian Products:
+		
+			In SQL, a cross join (also known as a Cartesian product) is a type of join that returns the Cartesian product of the two tables being joined. 
+			In other words, it returns all possible combinations of rows from the two tables.
+			Cross joins are not commonly used in practice, but they can be useful in certain scenarios, such as generating test data or exploring all possible combinations of items in a product catalogue. 
+			However, it's important to be cautious when using cross joins with large tables, as they can generate a very large result set, which can be resource-intensive and slow to process.
+	
+						SELECT * FROM mix_data.users t1
+						CROSS JOIN mix_data.groups t2
+	
+		Inner Joins:
+		
+			In SQL, an inner join is a type of join operation that combines data from two or more tables based on a specified condition. 
+			The inner join returns only the rows from both tables that satisfy the specified condition, i.e., the matching rows.
+			When you perform an inner join on two tables, the result set will only contain rows where there is a match between the joining columns in both tables. 
+			If there is no match, then the row will not be included in the result set.
+			
+						SELECT * FROM mix_data.membership t1
+						INNER JOIN mix_data.users t2
+						ON t1.user_id = t2.user_id    			-> By default you can also write only JOIN
+			
+		Left Joins:
+		
+			A left join, also known as a left outer join, is a type of SQL join operation that returns all the rows from the left table (also known as the "first" table) and matching rows from the right table (also known as the "second" table). 
+			If there are no matching rows in the right table, the result will contain NULL values in the columns that come from the right table.
+			In other words, a left join combines the rows from both tables based on a common column, but it also includes all the rows from the left table, even if there are no matches in the right table. 
+			This is useful when you want to include all the records from the first table, but only some records from the second table.
+			
+						SELECT * FROM mix_data.membership t1
+						LEFT JOIN mix_data.users t2
+						ON t1.user_id = t2.user_id
+			
+		Right Joins:
+		
+			A right join, also known as a right outer join, is a type of join operation in SQL that returns all the rows from the right table and matching rows from the left table. 
+			If there are no matches in the left table, the result will still contain all the rows from the right table, with NULL values for the columns from the left table.
+			
+						SELECT * FROM mix_data.membership t1
+						RIGHT JOIN mix_data.users t2
+						ON t1.user_id = t2.user_id
+			
+		Full Outer Joins:
+
+			A full outer join, sometimes called a full join, is a type of join operation in SQL that returns all matching rows from both the left and right tables, as well as any non- matching rows from either table. 
+			In other words, a full outer join returns all the rows from both tables and matches rows with common values in the specified columns, and fills in NULL values for columns where there is no match.
+			
+					In MySQL we can perform full outer join normally.
+					wE CAN PERFORM IT THROIUGH UNION:
+						SELECT * FROM mix_data.membership t1
+						LEFT JOIN mix_data.users t2
+						ON t1.user_id = t2.user_id
+						UNION
+						SELECT * FROM mix_data.membership t1
+						RIGHT JOIN mix_data.users t2
+						ON t1.user_id = t2.user_id
+						
+SQL Set Operations:
+
+	1. UNION: 
+				The UNION operator is used to combine the results of two or more SELECT statements into a single result set. 
+				The UNION operator removes duplicate rows between the various SELECT statements.
+				
+							SELECT * FROM mix_data.person1
+							UNION
+							SELECT * FROM mix_data.person2
+				
+	2. UNION ALL: 
+				The UNION ALL operator is similar to the UNION operator, but it does not remove duplicate rows from the result set.
+
+							SELECT * FROM mix_data.person1
+							UNION ALL
+							SELECT * FROM mix_data.person2
+
+	3. INTERSECT: 
+				The INTERSECT operator returns only the rows that appear in both result sets of two SELECT statements.
+	
+							SELECT * FROM mix_data.person1
+							INTERSECT
+							SELECT * FROM mix_data.person2
+	
+	4. EXCEPT: 
+				The EXCEPT or MINUS operator returns only the distinct rows that appear in the first result set but not in the second result set of two SELECT statements.
+	
+							SELECT * FROM mix_data.person1
+							EXCEPT
+							SELECT * FROM mix_data.person2
+							
+Self Joins:
+
+	A self join is a type of join in which a table is joined with itself. This means that the table is treated as two separate tables, with each row in the table being compared to every other row in the same table.
+	Self joins are used when you want to compare the values of two different rows within the same table. 
+	For example, you might use a self join to compare the salaries of two employees who work in the same department, or to find all pairs of customers who have the same billing address.
+							
+							SELECT * FROM mix_data.Users t1
+							JOIN mix_data.Users t2
+							ON t1.emergency_contact = t2.user_id
+							
+Multiple Joins:
+							SELECT * FROM mix_data.membership t1
+							INNER JOIN mix_data.users t2
+							ON t1.user_id = t2.user_id 
+							jOIN mix_data.Users t3
+							ON t2.USERid = t3.user_id
+							
+What is a Subquery:
+
+		In SQL, a subquery is a query within another query. It is a SELECT statement that is nested inside another SELECT, INSERT, UPDATE, or DELETE statement. 
+		The subquery is executed first, and its result is then used as a parameter or condition for the outer query.
+		
+	Type of sub queries:
+	
+		1. the result it returns:
+			a. scalar 
+			b. row
+			c. table
+		2. Based on working:
+			a. independent
+			b. correlated
+			
+	Independent Subquery - Scalar Subquery:
+	
+		1. Find the movie with highest profit.
+		Ans:
+				SELECT name FROM movies
+				WHERE (gross - budget) = (SELECT MAX(gross - budget) FROM movies)
+				
+		2. Find how many movies have a rating > the avg of all the movie ratings(Find the count of above average movies)
+		Ans: 
+				SELECT COUNT(*) FROM movies.movies
+				WHERE score > (SELECT AVG(score) FROM movies.movies)
+				
+		3. Find the highest rated movie among all movies whose number of votes are > the dataset avg votes.
+		Ans:
+				SELECT * FROM movies.movies
+				WHERE score = (SELECT MAX(score) FROM movies.movies
+								WHERE votes > (SELECT AVG(votes) FROM movies.movies))
+		
+	Independent Subquery - Row Subquery(One Col Multi Rows):
+	
+		1. Find all users who never ordered.
+		Ans:
+				SELECT * FROM users
+				WHERE user_id NOT IN (SELECT DISTINCT(user_id) FROM zomato.orders)
+				
+		2. Find all the movies made by top 3 directors(in terms of total gross income).
+		Ans:
+				WITH top_director AS (SELECT director FROM movies
+									GROUP BY director
+									ORDER BY SUM(gross) DESC
+									LIMIT 3)
+				SELECT * FROM movies
+				WHERE director IN (SELECT * FROM top_director)
+				
+	Independent Subquery - Table Subquery(Multi Col Multi Row):
+	
+		1. Find the most profitable movie of each year
+		Ans:
+				SELECT * FROM movies.movies
+				WHERE (year, (gross - budget)) IN (SELECT year, MAX(gross - budget) FROM movies.movies
+													GROUP BY year
+													ORDER BY year)
+
+		2. Find the highest rated movie of each genre votes cutoff of 25000
+		Ans:
+				USE movies;
+				SELECT * from movies
+				WHERE (genre, score) IN (SELECT genre, MAX(score) from movies
+										WHERE votes > 25000
+										GROUP BY genre)
+				AND votes > 25000
+			
+	Correlated Subquery:
+		
+		1. Find all the movies that have a rating higher than the average rating of movies in the same genre.
+		Ans:
+				SELECT * FROM movies m1
+				WHERE score > (SELECT AVG(score) FROM movies m2 WHERE m2.genre = m1.genre)
+				
+		2. Find the favorite food of each customer.
+		Ans:
+				USE zomato;
+				WITH fav_food AS (SELECT name, f_name, COUNT(*) AS frequency FROM users t1
+								JOIN orders t2 ON t1.user_id = t2.user_id 
+								JOIN order_details t3 ON t2.order_id = t3.order_id
+								JOIN food t4 ON t3.f_id = t4.f_id
+								GROUP BY t2.user_id, t3.f_id)
+				SELECT * FROM fav_food     
+				WHERE frequency = (SELECT MAX(frequency) 
+									FROM fav_food
+									WHERE f2.user_id = f1.user_id)  
+									
+	Usage with SELECT:
+	
+		1. Get the percentage of votes for each movie compared to the total number of votes.
+		Ans:
+				SELECT name, (votes/(SELECT SUM(votes) FROM movies) * 100) AS percent_votes FROM movies
+				
+		2. Display all movie names ,genre, score and avg(score) of genre
+		Ans:
+				SELECT name, genre, score, (SELECT AVG(score) FROM movies m2 WHERE m1.genre = m2.genre) AS avg_score FROM movies m1
+				
+		3. Display the favroite food of each customer.
+		Ans:
+				USE zomato;
+
+				WITH fav_food AS (
+					SELECT t1.user_id, t1.name AS user_name, t4.f_id, t4.f_name, COUNT(*) AS frequency
+					FROM users t1
+					JOIN orders t2 ON t1.user_id = t2.user_id
+					JOIN order_details t3 ON t2.order_id = t3.order_id
+					JOIN food t4 ON t3.f_id = t4.f_id
+					GROUP BY t1.user_id, t1.name, t4.f_id, t4.f_name
+				)
+				SELECT user_id, user_name, f_id, f_name, frequency
+				FROM fav_food f1
+				WHERE frequency = (
+						SELECT MAX(frequency) 
+						FROM fav_food f2 
+						WHERE f2.user_id = f1.user_id
+					);
+
+	Usage with FROM:
+	
+		1. Display avg rating of each restaurant
+		Ans:
+				SELECT r_name, avg_rating 
+				FROM (SELECT r_id, AVG(restaurant_rating) AS avg_rating
+						FROM orders
+						GROUP BY r_id) t1
+				JOIN restaurants t2 ON t1.r_id = t2.r_id
+
+	Usage with HAVING:
+	
+		1. Find genre having avg score > avg avg score of all the movies.
+		Ans:
+				SELECT genre, AVG(score) AS avg_score
+				FROM movies
+				GROUP BY genre
+				HAVING AVG(score) > (SELECT AVG(score) FROM movies)
+												
+	Usage with Insert:
+	
+		1. populate a already created loyal_customer table with record of only those customers who have ordered food more than 3 times.
+		Ans:
+				INSERT INTO loyal_customer
+				(user_id, name)
+				SELECT t2.user_id, name 
+				FROM orders t1
+				JOIN users t2 ON t1.user_id = t2.user_id
+				GROUP BY t2.user_id, t2.name
+				HAVING count(*) > 3
+				
+	Usage with UPdate:
+	
+		1. populate the money col of loyal_customer with the order table. provide a 10% app money to all customer based on their order value.
+		Ans:
+				UPDATE loyal_customer
+				SET money = (SELECT SUM(amount)*0.1
+								FROM orders
+								WHERE orders.user_id = loyal_customer.user_id
+								)
+		
+	Usage with Delete:
+		
+		1. Delete all customers record who has never ordered.
+		Ans:
+				DELETE FROM users
+				WHERE user_id NOT IN (
+					SELECT DISTINCT user_id 
+					FROM orders
+				);
+
+What are Window Functions?:
+
+	Window functions in SQL are a type of analytical function that perform calculations across a set of rows that are related to the current row, called a "window". 
+	A window function calculates a value for each row in the result set based on a subset of the rows that are defined by a window specification.
+	The window specification is defined using the OVER() clause in SQL, which specifies the partitioning and ordering of the rows that the window function will operate on. 
+	The partitioning divides the rows into groups based on a specific column or expression, while the ordering defines the order in which the rows are processed within each group.
+	
+	Aggregate Function with OVER():
+		
+		Find all the students who have marks higher than the avg marks of their respective branch
+		Ans:
+				SELECT * 
+				FROM (SELECT *, AVG(marks) OVER(PARTITION BY branch) AS 'avg_marks'
+						FROM marks) t
+				WHERE t.marks > t.avg_marks
+				
+	RANK/DENSE_RANK/ROW_NUMBER :
+	
+		RANK: It ranks the data based on specified col. For same values it will rank same and consecutive next value will have value with skipped rank.
+				a 20 rank 1
+				b 30 rank 2
+				c 30 rank 2
+				d 40 rank 4
+				
+				SELECT *, RANK() OVER(PARTITION BY branch ORDER BY marks DESC)
+				FROM mix_data.marks
+		
+		DENSE_RANK: when ranking it will not skip next value.
+				a 20 rank 1
+				b 30 rank 2
+				c 30 rank 2
+				d 40 rank 3
+				
+				SELECT *, DENSE_RANK() OVER(PARTITION BY branch ORDER BY marks DESC) AS branch_rank2
+				FROM mix_data.marks
+				
+		ROW_NUMBER: It just numbers the rows,
+				a 20  1
+				b 30  2
+				d 40  4
+				c 30  3
+				
+				SELECT *, ROW_NUMBER() OVER(partition by branch) AS branch_rank2
+				FROM mix_data.marks
+				
+		Find top 2 most paying customers of each month
+		Ans:
+				USE zomato;
+
+				SELECT * 
+				FROM (SELECT MONTHNAME(date) AS month, user_id, SUM(amount) AS total,
+						RANK() OVER(PARTITION BY MONTHNAME(date) ORDER BY SUM(amount) DESC) AS month_rank
+						FROM orders
+						GROUP BY MONTHNAME(date), user_id
+						ORDER BY MONTHNAME(date)
+						) t
+				WHERE t.month_rank < 3
+				ORDER BY  month DESC
+					
+	Frames:
+	
+	A frame in a window function is a subset of rows within the partition that determines the scope of the window function calculation. 
+	The frame is defined using a combination of two clauses in the window function: ROWS and BETWEEN.
+	The ROWS clause specifies how many rows should be included in the frame relative to the current row. 
+		For example, ROWS 3 PRECEDING means that the frame includes the current row and the three rows that precede it in the partition.
+	The BETWEEN clause specifies the boundaries of the frame.
+		
+	Examples
+
+		1. ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW:
+				means that the frame includes all rows from the beginning of the partition up to and including the current row.
+		2. ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING: 
+				the frame includes the current row and the row immediately before and after it.
+		3. ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING: 
+				the frame includes all rows in the partition.
+		4. ROWS BETWEEN 3 PRECEDING AND 2 FOLLOWING: 
+				the frame includes the current row and the three rows before it and the two rows after it.
+				
+		For 2,4 you can insert your own values before preceding and following.		
+				
+	FIRST_VALUE/LAST VALUE/NTH_VALUE: 
+	
+		Will display first, last, nth values. 
+		This uses Frames to determine the values. By default Frames are set to 'ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW'.
+	
+		FIRST_VALUE:
+			
+			SELECT *,
+			FIRST_VALUE(name) OVER(ORDER BY marks DESC)
+			FROM marks
+
+		LAST VALUE:
+					last value logic is not same as first value logic. Here we have to change default Frame!
+					
+			SELECT *, 
+			LAST_VALUE(marks) OVER(ORDER BY marks DESC
+									ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+			FROM marks;
+			
+		NTH_VALUE: Here also we have to change default Frame!
+		
+			SELECT *,
+			NTH_VALUE(name,2) OVER(PARTITION BY branch ORDER BY marks DESC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS '2nd_topper'
+			FROM marks
+			
+		For multiple columns with same over arguments,
+		
+			SELECT *,
+			NTH_VALUE(name,2) OVER w AS '2nd_topper',
+			LAST_VALUE(name) OVER w AS 'loser'
+			FROM marks
+			WINDOW w AS (PARTITION BY branch ORDER BY marks DESC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+		
+	LEAD & LAG:
+	
+		Will display previous one(lag) or next one(lead) values.
+		
+			SELECT *,
+			LAG(marks) OVER(ORDER BY student_id DESC)
+			FROM marks 
+			
+			SELECT *,
+			LEAD(marks) OVER(ORDER BY student_id DESC)
+			FROM marks 
+			
+		If you need x previous values then you can add below arguments,
+			LAG(marks, x)
+			
+	Cumulative Sum:
+	
+		Cumulative sum is another type of calculation that can be performed using window functions. A cumulative sum calculates the sum of a set of values up to a given point in time, and includes all previous values in the calculation.
+		
+	Cumulative Average:
+
+		Cumulative average is another type of average that can be calculated using window functions. A cumulative average calculates the average of a set of values up to a given point in time, and includes all previous values in the calculation.
+		
+	Running Average:
+
+		Running average(also known as moving average) is the statistical technique that calculates the average value of the dataset over a moving window of consecutive data points.
+		
+	Percent of total:
+
+		Percent of total refers to the percentage or proportion of a specific value in relation to the total value. It is a commonly used metric to represent the relative importance or contribution of a particular value within a larger group or population.
+		
+	Percent Change:
+
+		Percent change is a way of expressing the difference between two values as a percentage of the original value. It is often used to measure how much a value has increased or decreased over a given period of time, or to compare two different values.
+		
+	Percentiles & Quantiles:
+
+		A Quantile is a measure of the distribution of a dataset that divides the data into any number of equally sized intervals. 
+		For example, a dataset could be divided into deciles (ten equal parts), quartiles (four equal parts), percentiles (100 equal parts), or any other number of intervals.
+		Each quantile represents a value below which a certain percentage of the data falls. 
+		For example, the 25th percentile (also known as the first quartile, or Q1) represents the value below which 25% of the data falls. The 50th percentile (also known as the median) represents the value below which 50% of the data falls, and so on.
+		
+		PERCENTILE_CONT:
+			calculates the continuous percentile value, which returns the interpolated value between adjacent data points. 
+			In other words, it estimates the percentile value by assuming that the values between data points are distributed uniformly. 
+			This function returns a value that may not be present in the original dataset.
+
+		PERCENTILE_DISC:
+			on the other hand, calculates the discrete percentile value, which returns the value of the nearest data point. 
+			This function returns a value that is present in the original dataset.
+			
+		SELECT *,
+		PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY marks) OVER () AS Q1
+		FROM mix_data.marks;
+
+	Segmentation:
+	
+		Segmentation using NTILE is a technique in SQL for dividing a dataset into equal-sized groups based on some criteria or conditions, and then performing calculations or analysis on each group separately using window functions.
+		
+		SELECT *,
+		NTILE(3) OVER(ORDER BY marks DESC) AS buckets
+		FROM mix_data.marks;
+		
+	Cumulative Distribution:
+	
+		The cumulative distribution function is used to describe the probability distribution of random variables. It can be used to describe the probability for a discrete, continuous or mixed variable. 
+		It is obtained by summing up the probability density function and getting the cumulative probability for a random variable
+		
+		SELECT *,
+		CUME_DIST() OVER(ORDER BY marks) AS percentile_score
+		FROM mix_data.marks;
