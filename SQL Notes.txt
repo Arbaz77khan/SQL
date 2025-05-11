@@ -786,3 +786,11 @@ What are Window Functions?:
 		SELECT *,
 		CUME_DIST() OVER(ORDER BY marks) AS percentile_score
 		FROM mix_data.marks;
+		
+		
+Using SQL in Python
+Python SQL Database connection
+Using SQL magic commands to run SQL code in python. like % for line magic and %% for cell magic.
+
+
+Views, Stored procedures, ACID Transaction
